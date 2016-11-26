@@ -69,24 +69,30 @@ unsigned char USBSerial::readChar() {
 }
 
 std::string USBSerial::readChars() {
-	int n = 0,
-    spot = 0;
+	int n = 0, spot = 0;
 	char buf = '\0';
-
-	/* Whole response*/
-	char response[1024];
-	memset(response, '\0', sizeof response);
+	std::string response = "";
 
 	do {
 	    n = read( USB, &buf, 1 );
-	    sprintf( &response[spot], "%c", buf );
 	    spot += n;
-	    std::cout << buf;
+	    response.push_back(buf);
 	} while( buf != '\n' && n > 0);
 
-	return std::string(response);
+	return response;
 }
 
 void USBSerial::writeChar(unsigned char c) {
 	write( USB, &c, 1 );
+}
+
+void USBSerial::writeChars(std::string s) {
+	const char * c = s.c_str();
+
+	int n_written = 0, spot = 0;
+
+	do {
+    	n_written = write( USB, &c[spot], 1 );
+    	spot += n_written;
+	} while (c[spot-1] != '\n' && n_written > 0);
 }
