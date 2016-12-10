@@ -21,8 +21,13 @@ int main(int argc, char *argv[]) {
 		std::cout << "Sent: " << buf << std::endl;
 	    Cerebot.writeChar(buf);
 	    response = Cerebot.readChars();
+<<<<<<< HEAD
     	Uno.writeChars(response);
     	std::cout << "Received: " << response;
+=======
+    	std::cout << "Received: " << response;
+    	Uno.writeChars(response);
+>>>>>>> origin/master
 	} while( buf != 'X' );
 
 	return 0;
