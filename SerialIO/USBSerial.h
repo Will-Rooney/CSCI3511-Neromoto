@@ -32,6 +32,7 @@ public:
 	unsigned char readChar();
 	std::string readChars();
 	void writeChar(unsigned char c);
+	void writeChars(std::string s);
 
 private:
 	struct termios tty;

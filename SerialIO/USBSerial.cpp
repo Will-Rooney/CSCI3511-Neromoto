@@ -90,3 +90,13 @@ std::string USBSerial::readChars() {
 void USBSerial::writeChar(unsigned char c) {
 	write( USB, &c, 1 );
 }
+
+void USBSerial::writeChars(std::string s) {
+	const char * c = s.c_str();
+	int n_written = 0, spot = 0;
+
+	do {
+		n_written = write( USB, &c[spot], 1 );
+		spot += n_written;
+	} while ( c[spot-1] != '\n' && n_written > 0 );
+}
